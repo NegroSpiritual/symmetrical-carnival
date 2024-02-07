@@ -1,0 +1,11 @@
+torch
+torchvision
+PIL
+opencv-python
+matplotlib
+fastapi
+python-multipart
+uvicorn
+psycopg2
+sqlalchemy
+starlette
