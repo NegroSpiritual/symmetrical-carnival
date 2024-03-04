@@ -1,11 +1,5 @@
-torch
 torchvision
-PIL
-opencv-python
-matplotlib
+torch
 fastapi
-python-multipart
 uvicorn
-psycopg2
-sqlalchemy
 starlette
