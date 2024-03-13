@@ -1,5 +1,7 @@
 import React from 'react';
-import PredictionForm from './components/PredictionForm'; // Adjust the path as necessary
+import PredictionForm from './components/PredictionForm';
+
+import "./styles/PredictionForm.css";
 
 function App() {
     return (

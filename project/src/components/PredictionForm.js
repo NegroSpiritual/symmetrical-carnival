@@ -3,53 +3,60 @@ import axios from 'axios';
 
 function PredictionForm() {
     const [file, setFile] = useState(null);
+    const [preview, setPreview] = useState(null);
     const [prediction, setPrediction] = useState(null);
-    const [isPredicting, setIsPredicting] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (event) => {
-        setFile(event.target.files[0]);
+        const selectedFile = event.target.files[0];
+        setFile(selectedFile);
+
+        if (selectedFile) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setPreview(reader.result);
+            };
+            reader.readAsDataURL(selectedFile);
+        } else {
+            setPreview(null);
+        }
     };
-
-    console.log(file)
-
-  
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setLoading(true);
 
-        setIsPredicting(true);
-        setPrediction(null);
-
-        let formData = new FormData();
-        let text ="dfdfddgdg"
-        formData.append('file', file );
-        console.log(formData.get("file"))
+        const formData = new FormData();
+        formData.append('file', file);
 
         try {
-            const response = await axios.post('http://localhost:8001/predict/',formData,{
-                
+            const response = await axios.post('http://127.0.0.1:8001/predict/', formData, {
                 headers: {
-                    'Content-Type': 'multipart/formdata'
+                    'Content-Type': 'multipart/form-data'
                 }
             });
-            console.log(response)
-            setPrediction(response.data.predicted_class);
+            if (response.data && response.data.predicted_class) {
+                setPrediction(response.data.predicted_class);
+            } else {
+                setPrediction('Unknown');
+            }
         } catch (error) {
             console.error('Error predicting:', error);
         } finally {
-            setIsPredicting(false);
+            setLoading(false);
         }
     };
 
     return (
-        <div>
-            <h1>Liver Disease Detection</h1>
+        <div className="form-container">
+            <h1>Liver Disease Classifier</h1>
             <form onSubmit={handleSubmit}>
                 <input type="file" onChange={handleChange} />
+                {preview && <img src={preview} alt="Preview" style={{ maxWidth: '100%', maxHeight: '200px', margin: '10px 0' }} />}
                 <button type="submit">Predict</button>
             </form>
-            {isPredicting && <p>Predicting...</p>}
-{prediction && <p>Predicted Class: {prediction}</p>}
+            {loading && <p>Loading...</p>}
+            {prediction && !loading && <p>Predicted Class: {prediction}</p>}
         </div>
     );
 }
