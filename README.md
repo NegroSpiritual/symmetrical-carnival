@@ -1,8 +1,7 @@
 # Symmetrical-Carnival
 
 ## About
-
-Briefly describe your project and its purpose.
+This project is designed to classify 4 variants of liver disease: cirrhosis, steatosis, inflammation and ballooning. It utilizes a convolutional neuaral network to carry out its predictions. Having training and validation accuracy of 91.53 and 83.33 percent respectively
 
 ## Installation
 
@@ -18,9 +17,6 @@ Briefly describe your project and its purpose.
 2. Start the backend server: `<uvicorn main:app --reload --port 8001>`
 
 ## Usage
+In your web browser, enter `<localhost:3000>` and HACK AWAY!
 
-Provide instructions on how to use your project, including any configuration or setup needed.
-
-## Contributing
-
-Provide guidelines for contributing to your project, such as how to set up a development environment and submit pull requests.
+## Limitations
