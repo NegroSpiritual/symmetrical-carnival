@@ -1,5 +1,9 @@
-## Symmetrical Carnival
-This Repo is designed to house the files for my undergraduate research project.
-The README will be constantly updated to show functionalities and explain properly the files in the repository and how to use them.
+## About The Project
 
-## How to Use
+## How to Run It
+To start the frontend server:
+cd <project>
+<npm start>
+To Start The Backend Server:
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8001
