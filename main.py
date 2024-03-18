@@ -4,6 +4,10 @@ from torchvision import transforms
 from PIL import Image
 import torch, torch.nn as nn, torch.nn.functional as F
 import json
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+import sqlite3
+from passlib.context import CryptContext
 
 class SimpleClassifier(nn.Module):
     def __init__(self):
@@ -82,3 +86,35 @@ async def predict(file: UploadFile = File(...)):
 
     return {"predicted_class": predicted_class}
 # Run the FastAPI app
+
+# Database initialization
+conn = sqlite3.connect('users.db')
+cursor = conn.cursor()
+cursor.execute('''CREATE TABLE IF NOT EXISTS users
+             (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, password TEXT)''')
+conn.commit()
+
+# Password hashing
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+
+class User(BaseModel):
+    username: str
+    password: str
+
+
+@app.post("/signup")
+async def signup(user: User):
+    hashed_password = pwd_context.hash(user.password)
+    conn.execute("INSERT INTO users (username, password) VALUES (?, ?)", (user.username, hashed_password))
+    conn.commit()
+    return {"message": "User created successfully"}
+
+
+@app.post("/login")
+async def login(user: User):
+    stored_user = conn.execute("SELECT * FROM users WHERE username = ?", (user.username,)).fetchone()
+    if stored_user:
+        if pwd_context.verify(user.password, stored_user[2]):
+            return {"message": "Login successful"}
+    raise HTTPException(status_code=401, detail="Invalid credentials")

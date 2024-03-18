@@ -1,14 +1,17 @@
+// App.js
 import React from 'react';
+import Onboarding from './components/Onboarding';
 import PredictionForm from './components/PredictionForm';
+import Signup from './components/Signup';
 
-import "./styles/PredictionForm.css";
-
-function App() {
-    return (
-        <div>
-            <PredictionForm />
-        </div>
-    );
-}
+const App = () => {
+  return (
+    <div>
+        <PredictionForm/>
+      
+      
+    </div>
+  );
+};
 
 export default App;

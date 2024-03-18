@@ -9,7 +9,7 @@ function Navbar() {
                     <Link to="/login">Login</Link>
                 </li>
                 <li>
-                    <Link to="/predict">Predict</Link>
+                    <Link to="/PredictionForm">Predict</Link>
                 </li>
             </ul>
         </nav>
