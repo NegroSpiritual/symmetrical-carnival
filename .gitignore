@@ -1,6 +1,6 @@
 /.ipynb_checkpoints
 /env
 /liver_disease.v2-release.multiclass
-/project
+/.project
 /__pycache__
 users.db
