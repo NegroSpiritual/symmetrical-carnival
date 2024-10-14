@@ -20,7 +20,6 @@ st.markdown(
 
     Lawani Benjamin
     
-    Ayoola Oluwatorera 
 
     in partial fulfillment of the requirements of a BS.c Software Engineering under the supervision of 
     Mr Adeoti B.E.
