@@ -179,7 +179,7 @@ transform = transforms.Compose([
 labels = ['balloning', 'cirrhosis', 'inflammation', 'steatosis']
 
 # Set the page to be centered and responsive
-st.set_page_config(page_title="Plotting Demo", page_icon="📈")
+st.set_page_config(page_title="Disease Classification", page_icon="📈")
 
 st.markdown("#Liver Disease Classification")
 st.sidebar.header("Disease Classification")
